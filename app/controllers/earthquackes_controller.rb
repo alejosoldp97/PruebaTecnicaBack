@@ -2,14 +2,15 @@ class EarthquackesController < ApplicationController
 URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
 
     def index
-        earthquackes = Earthquacke.all 
+        earthquackes = Earthquacke.all         
         #debugger
         earthquackes = filter_data(earthquackes)
-        response = serialize_response(earthquackes)
+        pagy, earthquackes = pagy(earthquackes, items: params[:per_page] || 10)
+        response = serialize_response(earthquackes, pagy)
         render json: response
     end
 
-    def serialize_response(earthquackes)
+    def serialize_response(earthquackes, pagy)
         rendered_data = {
             "data": earthquackes.map do |earthquake|
                 {
@@ -34,9 +35,9 @@ URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojs
                 }
             end,
             "pagination": {
-                "current_page": 1, # Cambia esto según tu paginación real
-                "total": earthquackes.count, # Total de terremotos
-                "per_page": earthquackes.count # Cambia esto según el número de terremotos por página
+                "current_page": pagy.page, # Cambia esto según tu paginación real
+                "total": pagy.pages, # Total de terremotos
+                "per_page": pagy.items # Cambia esto según el número de terremotos por página
             }
             }
     end

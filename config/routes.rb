@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :earthquackes
   get "earthquackes/get_data"
+  resources :comments
 end
