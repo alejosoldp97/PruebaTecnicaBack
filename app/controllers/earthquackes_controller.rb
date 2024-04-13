@@ -1,76 +1,23 @@
 class EarthquackesController < ApplicationController
-URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
+    include EarthquackeResponse
 
     def index
         earthquackes = Earthquacke.all         
-        #debugger
         earthquackes = filter_data(earthquackes)
-        pagy, earthquackes = pagy(earthquackes, items: params[:per_page] || 10)
-        response = serialize_response(earthquackes, pagy)
+        per_page = params[:per_page].present? ? params[:per_page].to_i : 10
+        pagy, earthquackes = pagy(earthquackes, items: per_page)
+        response = earthquacke_response(earthquackes, pagy)
         render json: response
     end
 
-    def serialize_response(earthquackes, pagy)
-        rendered_data = {
-            "data": earthquackes.map do |earthquake|
-                {
-                "id": earthquake.id,
-                "type": "feature",
-                "attributes": {
-                    "external_id": earthquake.external_id,
-                    "magnitude": earthquake.magnitude,
-                    "place": earthquake.place,
-                    "time": earthquake.time,
-                    "tsunami": earthquake.tsunami,
-                    "mag_type": earthquake.mag_type,
-                    "title": earthquake.title,
-                    "coordinates": {
-                    "longitude": earthquake.longitude,
-                    "latitude": earthquake.latitude
-                    }
-                },
-                "links": {
-                    "external_url": earthquake.external_url
-                }
-                }
-            end,
-            "pagination": {
-                "current_page": pagy.page, # Cambia esto según tu paginación real
-                "total": pagy.pages, # Total de terremotos
-                "per_page": pagy.items # Cambia esto según el número de terremotos por página
-            }
-            }
-    end
-
     def get_data
-        response = Net::HTTP.get_response(URI(URL))
-        earthquackes = JSON.parse(response.body)["features"]
-        save_data(earthquackes)
-    end
-
-    def save_data(earthquackes)
-        earthquackes.each do |eq|
-                # debugger
-                Earthquacke.find_or_create_by( external_id:eq["id"]) do |earthquacke|
-                earthquacke.external_id=eq["id"]
-                earthquacke.magnitude=eq["properties"]["mag"]
-                earthquacke.place=eq["properties"]["place"]
-                earthquacke.time=eq["properties"]["time"]
-                earthquacke.tsunami=eq["properties"]["tsunami"]
-                earthquacke.mag_type=eq["properties"]["magType"]
-                earthquacke.title=eq["properties"]["title"]
-                earthquacke.longitude=eq["geometry"]["coordinates"][0]
-                earthquacke.latitude=eq["geometry"]["coordinates"][1]
-                earthquacke.external_url=eq["properties"]["url"]
-                end
-            
-        end
+        Earthquake::RetrieveData.call
     end
 
     def filter_data(earthquackes)
         filters=params[:filters]
         return earthquackes if filters.blank?
-        #debugger
+
         filtered_eq = earthquackes.where(mag_type: filters[:mag_type])
     end
 end
