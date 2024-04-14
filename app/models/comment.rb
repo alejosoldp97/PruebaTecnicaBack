@@ -1,6 +1,4 @@
 class Comment < ApplicationRecord
-    belongs_to :earthquacke
-    validates :body, presence: true
-    
-    
+  belongs_to :earthquake
+  validates :body, presence: true
 end

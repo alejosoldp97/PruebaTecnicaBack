@@ -1,6 +1,6 @@
-class CreateEarthquacke < ActiveRecord::Migration[7.0]
+class CreateEarthquake < ActiveRecord::Migration[7.0]
   def change
-    create_table :earthquackes do |t|
+    create_table :earthquakes do |t|
       t.decimal :magnitude
       t.string :external_id
       t.string :place
