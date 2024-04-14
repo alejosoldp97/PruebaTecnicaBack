@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  require 'sidekiq/web'
+  require 'sidekiq-scheduler/web'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-  resources :earthquackes
-  get "earthquackes/get_data"
-  resources :comments
+  namespace :api do
+    namespace :v1 do
+      resources :earthquakes do
+        post :update_data, on: :collection
+      end
+      resources :comments
+    end
+  end
 end

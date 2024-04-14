@@ -1,0 +1,10 @@
+---
+:concurrency: 5
+:queues:
+  - default
+:scheduler:
+  :schedule:
+    earthquake_retriever:
+      #cron: "@hourly"
+      cron: '@hourly'
+      class: RetrieveEarthquakeDataJob
