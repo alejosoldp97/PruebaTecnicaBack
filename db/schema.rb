@@ -10,32 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_12_163330) do
+ActiveRecord::Schema[7.0].define(version: 20_240_412_163_330) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "comments", force: :cascade do |t|
-    t.bigint "earthquacke_id", null: false
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["earthquacke_id"], name: "index_comments_on_earthquacke_id"
+  create_table 'comments', force: :cascade do |t|
+    t.bigint 'earthquake_id', null: false
+    t.text 'body'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['earthquake_id'], name: 'index_comments_on_earthquake_id'
   end
 
-  create_table "earthquackes", force: :cascade do |t|
-    t.decimal "magnitude"
-    t.string "external_id"
-    t.string "place"
-    t.string "time"
-    t.boolean "tsunami"
-    t.string "mag_type"
-    t.string "title"
-    t.decimal "longitude"
-    t.decimal "latitude"
-    t.string "external_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'earthquakes', force: :cascade do |t|
+    t.decimal 'magnitude'
+    t.string 'external_id'
+    t.string 'place'
+    t.string 'time'
+    t.boolean 'tsunami'
+    t.string 'mag_type'
+    t.string 'title'
+    t.decimal 'longitude'
+    t.decimal 'latitude'
+    t.string 'external_url'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "comments", "earthquackes"
+  add_foreign_key 'comments', 'earthquakes'
 end

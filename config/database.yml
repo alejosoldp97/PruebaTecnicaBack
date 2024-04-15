@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: PruebaTecnicaBack_development
+  database: earthquakes_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: PruebaTecnicaBack_test
+  database: earthquakes_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: PruebaTecnicaBack_production
-  username: PruebaTecnicaBack
-  password: <%= ENV["PRUEBATECNICABACK_DATABASE_PASSWORD"] %>
+  database: earthquakes_production
+  username: earthquakes
+  password: <%= ENV["EARTHQUAKES_DATABASE_PASSWORD"] %>
