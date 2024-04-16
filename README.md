@@ -1,24 +1,43 @@
-# README
+# Prueba Tecnica Frogmi Ruby 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este respositorio contiene el Backend correspondiente a la prueba técnica para desarrollador Junior en Ruby. Esta aplicación expone los endpoint para consultar datos sísmicos, crear y recuperar comentarios asociados a éstos. Además de una tarea asíncrona para actualizar datos cada  hora.
 
-Things you may want to cover:
 
-* Ruby version
+## Getting Started
+Versiones requeridas:
+```
+Ruby 3.2.2
+Rails 7.0.8.1
+Redis-server 7.2
 
-* System dependencies
+```
+## Setup
 
-* Configuration
+Para ejecutar esta aplicación:
 
-* Database creation
+```bash
+  bundle install
+  rails db:create
+  rails db:migrate
+  rake earthquakes:update_data
+```
 
-* Database initialization
+## Usage
+Levantar el servidor en el puerto 3000
 
-* How to run the test suite
+```
+  rails s -p 3000
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Correr servidor de redis
 
-* Deployment instructions
+```
+  redis-server
 
-* ...
+```
+Levantar sidekiq
+
+```
+  bundle exec sidekiq
+
+```
