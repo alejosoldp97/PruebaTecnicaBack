@@ -1,6 +1,16 @@
-# Prueba Técnica Frogmi Ruby 
 
-Este respositorio contiene el Backend correspondiente a la prueba técnica para desarrollador Junior en Ruby. Esta aplicación expone los endpoint para consultar datos sísmicos, crear y recuperar comentarios asociados a éstos. Además de una tarea asíncrona para actualizar datos cada  hora.
+# Prueba Tecnica Frogmi Ruby 
+
+Este respositorio contiene el Backend correspondiente a la prueba técnica para desarrollador Junior en Ruby. Las features de la aplicación se exponen más adelante.
+
+
+## Features
+
+- Endpoint para exponer los datos sísmicos.
+- Endpoint para crear y recuperar comentarios.
+- Paginación.
+- Tarea asíncrona para la actualización de los datos.
+- Filtrado por número de items y por tipo de magnitud.
 
 
 ## Getting Started
@@ -11,6 +21,9 @@ Rails 7.0.8.1
 Redis-server 7.2
 
 ```
+
+
+
 ## Setup
 
 Para ejecutar esta aplicación:
@@ -21,6 +34,7 @@ Para ejecutar esta aplicación:
   rails db:migrate
   rake earthquakes:update_data
 ```
+
 
 ## Usage
 Levantar el servidor en el puerto 3000
