@@ -1,4 +1,4 @@
-# Prueba Tecnica Frogmi Ruby 
+# Prueba Técnica Frogmi Ruby 
 
 Este respositorio contiene el Backend correspondiente a la prueba técnica para desarrollador Junior en Ruby. Esta aplicación expone los endpoint para consultar datos sísmicos, crear y recuperar comentarios asociados a éstos. Además de una tarea asíncrona para actualizar datos cada  hora.
 
